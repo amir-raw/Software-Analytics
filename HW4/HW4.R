@@ -1,0 +1,74 @@
+data <- read.csv("C:/Users/faiya/OneDrive - Texas Tech University/Texas tech course/fall 23/software analytics//HW1/auto.csv")
+
+# Subset the data for each region
+us_mpg <- data[data$origin == 1, "mpg"]
+eu_mpg <- data[data$origin == 2, "mpg"]
+asia_mpg <- data[data$origin == 3, "mpg"]
+# Perform t-tests to compare mpg between US and Asia
+t_test_us_asia <- t.test(us_mpg, asia_mpg)
+cat("T-Test Results for US vs Asia MPG:\n")
+print(t_test_us_asia)
+
+# Perform t-tests to compare mpg between EU and Asia
+t_test_eu_asia <- t.test(eu_mpg, asia_mpg)
+cat("T-Test Results for EU vs Asia MPG:\n")
+print(t_test_eu_asia)
+
+# Perform t-tests to compare mpg between US and EU
+t_test_us_eu <- t.test(us_mpg, eu_mpg)
+cat("T-Test Results for US vs EU MPG:\n")
+print(t_test_us_eu)
+
+# Perform Wilcoxon rank-sum tests (Mann-Whitney U tests) as non-parametric alternatives
+wilcox_test_us_asia <- wilcox.test(us_mpg, asia_mpg)
+cat("Wilcoxon Test Results for US vs Asia MPG:\n")
+print(wilcox_test_us_asia)
+
+wilcox_test_eu_asia <- wilcox.test(eu_mpg, asia_mpg)
+cat("Wilcoxon Test Results for EU vs Asia MPG:\n")
+print(wilcox_test_eu_asia)
+
+wilcox_test_us_eu <- wilcox.test(us_mpg, eu_mpg)
+cat("Wilcoxon Test Results for US vs EU MPG:\n")
+print(wilcox_test_us_eu)
+
+
+
+
+# Subset the data for cars with 4, 6, and 8 cylinders
+mpg_4cyl <- data[data$cylinders == 4, "mpg"]
+mpg_6cyl <- data[data$cylinders == 6, "mpg"]
+mpg_8cyl <- data[data$cylinders == 8, "mpg"]
+
+# Perform t-tests to compare mpg between different cylinder counts
+# For example, between 4-cylinder and 6-cylinder cars
+t_test_4vs6 <- t.test(mpg_4cyl, mpg_6cyl)
+cat("T-Test Results for 4-Cylinder vs 6-Cylinder MPG:\n")
+print(t_test_4vs6)
+
+# Perform Wilcoxon rank-sum tests as non-parametric alternatives
+wilcox_test_4vs6 <- wilcox.test(mpg_4cyl, mpg_6cyl)
+cat("Wilcoxon Test Results for 4-Cylinder vs 6-Cylinder MPG:\n")
+print(wilcox_test_4vs6)
+
+# Similar tests can be performed for other comparisons, like 4 vs 8 and 6 vs 8.
+# For example, between 4-cylinder and 6-cylinder cars
+t_test_4vs8 <- t.test(mpg_4cyl, mpg_8cyl)
+cat("T-Test Results for 4-Cylinder vs 6-Cylinder MPG:\n")
+print(t_test_4vs8)
+
+# Perform Wilcoxon rank-sum tests as non-parametric alternatives
+wilcox_test_4vs8 <- wilcox.test(mpg_4cyl, mpg_8cyl)
+cat("Wilcoxon Test Results for 4-Cylinder vs 6-Cylinder MPG:\n")
+print(wilcox_test_4vs8)
+
+#between 6 & 8
+
+t_test_6vs8 <- t.test(mpg_6cyl, mpg_8cyl)
+cat("T-Test Results for 4-Cylinder vs 6-Cylinder MPG:\n")
+print(t_test_6vs8)
+
+# Perform Wilcoxon rank-sum tests as non-parametric alternatives
+wilcox_test_6vs8 <- wilcox.test(mpg_6cyl, mpg_8cyl)
+cat("Wilcoxon Test Results for 4-Cylinder vs 6-Cylinder MPG:\n")
+print(wilcox_test_6vs8)
