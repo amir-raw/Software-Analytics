@@ -1,0 +1,101 @@
+data <- read.csv("C:/Users/faiya/OneDrive - Texas Tech University/Texas tech course/fall 23/software analytics//HW1/auto.csv")
+
+# Build the linear regression model M1
+M1 <- lm(horsepower ~ cylinders, data = data)
+
+# Summary of the model
+summary(M1)
+
+# Define the number of cylinders for the car
+new_data <- data.frame(cylinders = 10)
+
+# Predict the horsepower for a car with 10 cylinders using the model
+predicted_horsepower <- predict(M1, newdata = new_data)
+
+# Print the estimated horsepower
+cat("Estimated Horsepower for a Car with 10 Cylinders:", predicted_horsepower)
+
+# Build the linear regression model
+model_M2 <- lm(horsepower ~ displacement, data = data)
+
+# Summarize the model
+summary(model_M2)
+
+#q2
+# Given engine displacement
+displacement_200 <- 200
+
+# Estimate horsepower
+estimated_horsepower <- 40.306108 + (0.330038 * displacement_200)
+
+# Print the estimated horsepower
+print(estimated_horsepower)
+
+
+# Extract R-squared values
+R_squared_M1 <- summary(M1)$r.squared
+R_squared_M2 <- summary(model_M2)$r.squared
+
+# Compare R-squared values
+if (R_squared_M2 > R_squared_M1) {
+  cat("Model M2 has a better goodness of fit (higher R-squared) than Model M1.\n")
+} else if (R_squared_M1 > R_squared_M2) {
+  cat("Model M1 has a better goodness of fit (higher R-squared) than Model M2.\n")
+} else {
+  cat("Both models have the same R-squared value and provide similar goodness of fit.\n")
+}
+
+
+#q3
+
+# Set a seed for reproducibility
+set.seed(123)
+
+# Randomly sample 20 rows from the dataset
+sample_indices <- sample(1:nrow(data), 20)
+sample_data <- data[sample_indices, ]
+
+# Extract cylinders and displacement values from the sample
+sample_cylinders <- sample_data$cylinders
+sample_displacement <- sample_data$displacement
+
+# Use models M1 and M2 to estimate horsepower for the samples
+estimated_horsepower_M1 <- predict(M1, newdata = data.frame(cylinders = sample_cylinders))
+estimated_horsepower_M2 <- predict(model_M2, newdata = data.frame(displacement = sample_displacement))
+
+# Calculate the absolute errors for both models
+error_M1 <- abs(estimated_horsepower_M1 - sample_data$horsepower)
+error_M2 <- abs(estimated_horsepower_M2 - sample_data$horsepower)
+
+# Perform a paired t-test to compare the errors
+t_test_errors <- t.test(error_M1, error_M2, paired = TRUE)
+
+# Print the t-test results
+cat("Paired T-Test Results for Error Comparison:\n")
+print(t_test_errors)
+
+
+
+#q4
+
+# Build linear regression model M3
+model_M3 <- lm(formula = mpg ~ cylinders, data = data)
+
+# Print model summary
+summary(model_M3)
+
+# Define the number of cylinders (10 in this case)
+cylinders <- 10
+
+# Use model M3 to predict mpg
+estimated_mpg <- 42.9155 + (-3.5581 * cylinders)
+
+# Print the estimated mpg
+cat("Estimated MPG for a Car with 10 Cylinders:", estimated_mpg, "\n")
+
+#q5
+# Build linear regression model M4
+model_M4 <- lm(mpg ~ weight, data = data)
+
+# Print the summary of the model
+summary(model_M4)
